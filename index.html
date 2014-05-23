@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<title>&nbsp;</title>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+		<script type="text/javascript" charset="utf-8" src="ocrapiservice.js"></script> 
+		
+	</head>
+	<body>
+		<!-- Start of first page I -->
+		<div data-role="page" id="page1">
+			<!-- Header -->
+			<div data-role="header">
+				<h1>Phonegap Template &amp;</h1>
+
+			</div>
+			<!-- /header -->
+			<!-- Content    -->
+			<div data-role="content">
+				<h3>Content</h3>
+				<p>
+					OCR 
+				</p>
+			</div>
+			<!-- /content -->
+			<!-- footer -->
+			<div data-role="footer">
+				<h4>&copy; 2013 Your Name</h4>
+			</div>
+			<!-- /footer -->
+		</div>
+		<!-- /page -->
+	</body>
+</html>
+<script>
+	document.addEventListener("deviceready", onDeviceReady, false);// Waits for device to be ready
+
+	function onDeviceReady() {
+		document.addEventListener("pause", onPause, false);// handles pause event
+		document.addEventListener("resume", onResume, false);// handles reume event
+		alert("Device is Ready");
+
+	}
+
+
+//What to do when paused
+function onPause(){
+	
+	alert("paused!");
+}
+
+//What to do when resumed
+function onResume()
+{
+	
+	alert("resume");
+}
+//OCR plugin begins here
+function testExample() { 
+    navigator.camera.getPicture(onSuccess, onFail, { quality: 50, 
+    sourceType : Camera.PictureSourceType.PHOTOLIBRARY, 
+        destinationType: Camera.DestinationType.FILE_URI }); 
+} 
+
+function successCallback (result) { 
+   alert(result); 
+} 
+function errorCallback (error) { 
+   alert(error); 
+} 
+
+function onSuccess(imageURI) {
+    alert(imageURI);
+    ocrapiservice.convert( successCallback, errorCallback, imageURI, "en", "DdfJmSnWjK" ); 
+}
+
+function onFail(message) {
+    alert('Failed because: ' + message);
+}
+
+testExample();
+</script>
